@@ -18,12 +18,12 @@
       <div class="flex justify-between">
         <span
           class="leading-none rounded-full bg-green-500 text-white text-2xs px-3 py-1"
-          >Pop</span
+          >{{song.primaryGenreName}}</span
         >
         <div class="flex items-center">
           <img src="@/assets/img/dollar.svg" class="mr-1.5" alt="" />
           <span class="leading-none text-yellow-400 text-xs font-bold"
-            >1.9</span
+            >{{song.trackPrice}}</span
           >
         </div>
       </div>
