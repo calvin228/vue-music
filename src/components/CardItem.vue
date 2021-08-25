@@ -17,7 +17,7 @@
       </div>
       <div class="flex justify-between">
         <span
-          class="leading-none rounded-full bg-green-500 text-white text-2xs px-3 py-1"
+          class="leading-none rounded-full bg-green-500 text-white text-2xs px-3 py-1 max-w-min"
           >{{song.primaryGenreName}}</span
         >
         <div class="flex items-center">
