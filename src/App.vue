@@ -6,29 +6,34 @@
       </div>
       <div class="px-7 py-6">
         <div class="mb-3.5">
-          <input
-            type="text"
-            v-model="keyword"
-            class="w-full p-3 rounded-full text-center text-xs"
-            placeholder="Artist / Album / Title"
-          />
+          <Input v-model="keyword" placeholder="Artist / Album / Title"/>
         </div>
-        <button
-          @click="searchSongs"
-          class="rounded-full w-full p-3 text-white bg-white bg-opacity-20 text-sm"
-        >
+        <Button @click="searchSongs(keyword)">
           Search
-        </button>
+        </Button>
       </div>
     </div>
     <div v-else class="bg-purple-50 d-flex flex-column relative">
-      <navbar />
+      <navbar @open-modal="isModalDisplay = true"/>
       <result-list
+        ref="resultList"
         :keyword="keyword"
         :songs="songs"
         :limit="songsToShow"
         @load-more="loadMore"
       ></result-list>
+      <modal :show="isModalDisplay" @close-modal="closeModal">
+        <h2 class="text-white font-bold text-center mb-7 tracking-wider text-xl">Search</h2>
+        <div class="mb-3.5 w-full">
+          <Input ref="modalKeyword" v-model="modalKeyword" placeholder="Artist / Album / Title"/>
+        </div>
+        <button
+          @click="searchSongs($refs.modalKeyword.value)"
+          class="rounded-full w-full p-3 text-white bg-gradient-to-r from-purple-800 to-purple-600 text-sm"
+        >
+          Search
+        </button>
+      </modal>
     </div>
   </div>
 </template>
@@ -37,12 +42,18 @@
 import axios from "./axios";
 import Navbar from "./components/Navbar";
 import ResultList from "./components/ResultList";
+import Modal from "./components/Modal";
+import Input from "./components/Input";
+import Button from "./components/Button";
 
 export default {
   name: "App",
   components: {
     Navbar,
     ResultList,
+    Modal,
+    Input, 
+    Button
   },
   data() {
     return {
@@ -50,10 +61,13 @@ export default {
       songs: [],
       keyword: "",
       songsToShow: 5,
+      modalKeyword: "",
+      isModalDisplay: false,
     };
   },
   methods: {
-    searchSongs() {
+    searchSongs(inputKeyword) {
+      this.keyword = inputKeyword;
       const encodedURIKeyword = new URLSearchParams({
         term: this.keyword
       }).toString();
@@ -61,11 +75,21 @@ export default {
       this.searching = true;
       axios.get("/search?" + encodedURIKeyword).then((res) => {
         this.songs = res.data.results;
-      });
+      }).finally(() => {
+        this.$refs.resultList.$el.scrollTop = 0
+        this.resetSongToShow()
+      })
+      this.closeModal();
+    },
+    resetSongToShow(){
+      this.songsToShow = 5;
     },
     loadMore() {
       this.songsToShow += 5;
     },
+    closeModal(){
+      this.isModalDisplay = false;
+    }
   },
 };
 </script>

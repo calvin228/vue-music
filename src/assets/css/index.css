@@ -7,6 +7,7 @@ body{
 
 input::placeholder {
   opacity: 1;
+  color: #64748b;
 }
 input:focus::placeholder {
   opacity: 0;
@@ -56,4 +57,14 @@ input:focus::placeholder {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+}
+
+.modal-container{
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(28, 28, 45, 0.9);
+  z-index: 10;
 }

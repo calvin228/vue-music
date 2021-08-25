@@ -8,7 +8,7 @@
         <img src="@/assets/img/ngmusic.svg" alt="" />
       </div>
       <div class="px-3.5 py-3">
-        <img src="@/assets/img/icon-search.svg" alt="" />
+        <img src="@/assets/img/icon-search.svg" class="cursor-pointer" @click="$emit('open-modal')" alt="" />
       </div>
     </nav>
     <div class="rounded-circle-bottom"></div>
