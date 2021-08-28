@@ -7,6 +7,9 @@
       <div class="px-7 py-6">
         <div class="mb-3.5">
           <Input v-model="keyword" placeholder="Artist / Album / Title"/>
+          <!-- <div class="mt-1 text-xs text-red-700 text-center" v-if="$v.keyword.$dirty && !$v.keyword.required">
+            Keyword is required
+          </div> -->
         </div>
         <Button @click="searchSongs(keyword)">
           Search
@@ -21,6 +24,8 @@
         :songs="songs"
         :limit="songsToShow"
         @load-more="loadMore"
+        :error="error"
+        :loadingList="isLoadingList"
       ></result-list>
       <modal :show="isModalDisplay" @close-modal="closeModal">
         <h2 class="text-white font-bold text-center mb-7 tracking-wider text-xl">Search</h2>
@@ -45,6 +50,7 @@ import ResultList from "./components/ResultList";
 import Modal from "./components/Modal";
 import Input from "./components/Input";
 import Button from "./components/Button";
+// import { required } from 'vuelidate/lib/validators'
 
 export default {
   name: "App",
@@ -63,23 +69,42 @@ export default {
       songsToShow: 5,
       modalKeyword: "",
       isModalDisplay: false,
+      error: null,
+      isLoadingList: false,
     };
   },
+  // validations:{
+  //   keyword: {
+  //     required
+  //   }
+  // },
   methods: {
     searchSongs(inputKeyword) {
+
       this.keyword = inputKeyword;
       const encodedURIKeyword = new URLSearchParams({
         term: this.keyword
       }).toString();
 
+      this.clearError();
       this.searching = true;
+      this.isLoadingList = true;
+      
       axios.get("/search?" + encodedURIKeyword).then((res) => {
         this.songs = res.data.results;
+        this.modalKeyword = '';
+        console.log(this.$refs.resultList.$refs.audio.pause());
+      }).catch(err => {
+        this.error = err;
       }).finally(() => {
         this.$refs.resultList.$el.scrollTop = 0
+        this.isLoadingList = false;
         this.resetSongToShow()
       })
       this.closeModal();
+    },
+    clearError(){
+      this.error = null;
     },
     resetSongToShow(){
       this.songsToShow = 5;
@@ -96,7 +121,7 @@ export default {
 
 <style>
 #app {
-  max-width: 340px;
+  max-width: 360px;
   margin: 0 auto;
   width: 100%;
   position: relative;

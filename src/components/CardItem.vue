@@ -7,13 +7,13 @@
         :alt="song.trackName"
       />
       <button class="btn-play">
-        <img src="@/assets/img/play-circle.svg" class="" alt="" />
+        <img :src="buttonImage" @click="togglePlay" class="img-button" alt="" />
       </button>
     </div>
     <div class="flex flex-col justify-between flex-1">
       <div>
-        <div class="text-2xs font-medium mb-1">{{song.artistName}}</div>
-        <div class="text-sm font-bold leading-none">{{song.trackName}}</div>
+        <a :href="song.artistViewUrl" target="_blank" class="block text-2xs font-medium mb-1">{{song.artistName}}</a>
+        <a :href="song.trackViewUrl" target="_blank" class="text-sm font-bold leading-none block">{{song.trackName}}</a>
       </div>
       <div class="flex justify-between">
         <span
@@ -23,7 +23,7 @@
         <div class="flex items-center">
           <img src="@/assets/img/dollar.svg" class="mr-1.5" alt="" />
           <span class="leading-none text-yellow-400 text-xs font-bold"
-            >{{song.trackPrice}}</span
+            >{{song.trackPrice || 'N/A'}}</span
           >
         </div>
       </div>
@@ -32,13 +32,50 @@
 </template>
 
 <script>
+import playIcon from '../assets/img/play-circle.svg';
+import pauseIcon from '../assets/img/pause-circle-svg.svg';
+
 export default {
   name: 'CardItem',
   props: [
-    'song'
+    'song',
+    'activeUrl',
+    'audio'
   ],
+  data(){
+    return {
+      isPlay: false,
+    }
+  },
+  computed:{
+    buttonImage(){
+      if(this.activeUrl === this.song.previewUrl){
+        if(!this.isPlay){
+          return playIcon;
+        }
+        return pauseIcon;
+      } else {
+        return playIcon;
+      }
+    }
+  },
+  methods:{
+    togglePlay(){
+      this.isPlay = !this.isPlay;
+      if(this.isPlay){
+        this.$emit('play', this.song.previewUrl);
+      } else {
+        this.$emit('pause');
+      }
+    },
+    audioEventListener(){
+      this.audio.addEventListener('ended', () => { // lambda function to get "this" context from vue  
+        this.isPlay = false;
+      })
+    }
+  },
   mounted(){
-    console.log(this.song);
+    this.audioEventListener()
   }
 };
 </script>

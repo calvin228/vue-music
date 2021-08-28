@@ -1,0 +1,17 @@
+<svg version="1.2" baseProfile="tiny-ps" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="48" height="48">
+	<title>pause-circle-svg</title>
+	<style>
+		tspan { white-space:pre }
+		.shp0 { fill: none } 
+		.shp1 { fill: none;stroke: #ffffff;stroke-width: 3 } 
+		.shp2 { fill: #ffffff } 
+	</style>
+	<path id="backgroundrect" class="shp0" d="M0 0L100 0L100 100L0 100L0 0Z" />
+	<g id="Layer">
+		<path id="svg_13" class="shp1" d="M7.58 23.65C7.58 14.77 14.77 7.58 23.65 7.58C32.53 7.58 39.73 14.77 39.73 23.65C39.73 32.53 32.53 39.73 23.65 39.73C14.77 39.73 7.58 32.53 7.58 23.65Z" />
+		<g id="svg_10">
+			<path id="svg_11" class="shp2" d="M21.51 32.78L21.51 14.67C21.51 14.34 21.23 14.07 20.89 14.07L17.29 14.07C16.95 14.07 16.67 14.34 16.67 14.67L16.67 32.78C16.67 33.11 16.95 33.39 17.29 33.39L20.89 33.39C21.23 33.39 21.51 33.12 21.51 32.78Z" />
+			<path id="svg_12" class="shp2" d="M28.94 14.07L25.34 14.07C25 14.07 24.73 14.34 24.73 14.67L24.73 32.78C24.73 33.11 25 33.39 25.34 33.39L28.94 33.39C29.28 33.39 29.56 33.12 29.56 32.78L29.56 14.67C29.56 14.34 29.29 14.07 28.94 14.07Z" />
+		</g>
+	</g>
+</svg>

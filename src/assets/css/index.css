@@ -68,3 +68,8 @@ input:focus::placeholder {
   background-color: rgba(28, 28, 45, 0.9);
   z-index: 10;
 }
+.img-button{
+  width: 36px;
+  height: 36px;
+  filter: drop-shadow(3px 4px 6px black);
+}

@@ -16,7 +16,10 @@ export default {
     placeholder: {
       type: String,
       default: '',
-    }
+    },
+  },
+  mounted(){
+    console.log(this);
   }
 }
 </script>

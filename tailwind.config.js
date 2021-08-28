@@ -9,6 +9,12 @@ module.exports = {
       fontSize: {
         '2xs': '.625rem'
       },
+      width: {
+        '25': '6.25rem',
+      },
+      height:{
+        '25': '6.25rem',
+      },
       maxWidth: {
         '1/4': '25%',
         '1/2': '50%',
