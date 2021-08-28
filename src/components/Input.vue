@@ -18,9 +18,6 @@ export default {
       default: '',
     },
   },
-  mounted(){
-    console.log(this);
-  }
 }
 </script>
 

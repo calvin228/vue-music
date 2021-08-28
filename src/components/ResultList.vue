@@ -11,7 +11,7 @@
         <card-item-skeleton></card-item-skeleton>
         <card-item-skeleton></card-item-skeleton>
       </div>
-      <card-item v-else v-for="song in displayedSongs" :activeUrl="currentTrackUrl" ref="songItem" :key="song.trackId" :song="song" @play="playTrack" :audio="$refs.audio" @pause="pauseTrack"></card-item>
+      <card-item v-else v-for="song in displayedSongs" :activeUrl="currentTrackUrl" ref="songItem" :key="song.trackId" :isPlay="isPlay" :song="song" @play="playTrack" :audio="$refs.audio" @pause="pauseTrack"></card-item>
     </div>
     <div v-else class="text-center">
       An error has occured!
@@ -34,7 +34,8 @@ export default {
   },
   data(){
     return {
-      currentTrackUrl: null
+      currentTrackUrl: null,
+      isPlay: false
     }
   },
   props: [
@@ -49,22 +50,27 @@ export default {
       return this.songs.slice(0, this.limit)
     },
   },
+  watch:{
+    loadingList(){
+      this.stopTrack();
+    }
+  },
   methods:{
     pauseTrack(){
+      this.isPlay = false;
       this.$refs.audio.pause();
     },
     stopTrack(){
-      this.currentTrackUrl = null
+      this.currentTrackUrl = null;
+      this.isPlay = false;
       this.$refs.audio.pause();
-      console.log(this.$refs);
     },
     playTrack(url){
-      console.log('playTrack');
       if(this.currentTrackUrl !== url){
         this.currentTrackUrl = url;
         this.$refs.audio.src = this.currentTrackUrl;
-      } 
-      
+      }
+      this.isPlay = true;
       this.$refs.audio.play();
     }
   }

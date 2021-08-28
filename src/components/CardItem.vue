@@ -6,9 +6,13 @@
         class="img-album rounded-lg"
         :alt="song.trackName"
       />
-      <button class="btn-play">
-        <img :src="buttonImage" @click="togglePlay" class="img-button" alt="" />
+      <button v-if="isPlay && (activeUrl === song.previewUrl)" class="btn-play" @click="pausePreview">
+        <img src="@/assets/img/pause-circle.svg" class="img-button" alt="" />
       </button>
+      <button v-else class="btn-play" @click="playPreview">
+        <img src="@/assets/img/play-circle.svg" class="img-button" alt="" />
+      </button>
+
     </div>
     <div class="flex flex-col justify-between flex-1">
       <div>
@@ -32,51 +36,23 @@
 </template>
 
 <script>
-import playIcon from '../assets/img/play-circle.svg';
-import pauseIcon from '../assets/img/pause-circle-svg.svg';
 
 export default {
   name: 'CardItem',
   props: [
     'song',
     'activeUrl',
-    'audio'
+    'audio',
+    'isPlay'
   ],
-  data(){
-    return {
-      isPlay: false,
-    }
-  },
-  computed:{
-    buttonImage(){
-      if(this.activeUrl === this.song.previewUrl){
-        if(!this.isPlay){
-          return playIcon;
-        }
-        return pauseIcon;
-      } else {
-        return playIcon;
-      }
-    }
-  },
   methods:{
-    togglePlay(){
-      this.isPlay = !this.isPlay;
-      if(this.isPlay){
-        this.$emit('play', this.song.previewUrl);
-      } else {
-        this.$emit('pause');
-      }
+    playPreview(){
+      this.$emit('play', this.song.previewUrl);
     },
-    audioEventListener(){
-      this.audio.addEventListener('ended', () => { // lambda function to get "this" context from vue  
-        this.isPlay = false;
-      })
+    pausePreview(){
+      this.$emit('pause', this.song.previewUrl);
     }
   },
-  mounted(){
-    this.audioEventListener()
-  }
 };
 </script>
 

@@ -1,5 +1,11 @@
 module.exports = {
-  devServer: {
-    proxy: 'http://localhost:3000' // the port your server in running on
-  }
+  // devServer: {
+  //   proxy: {
+  //     '^/search' : {
+  //       target: 'http://itunes.apple.com',
+  //       changeOrigin: true,
+  //       logLevel: 'debug'
+  //     }
+  //   } // the port your server in running on
+  // }
 }

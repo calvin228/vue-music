@@ -3,9 +3,7 @@
     <button @click="$emit('close-modal')" class="block ml-auto mr-0">
       <img src="@/assets/img/close.svg" class="" alt="">
     </button>
-    <div class="flex flex-col items-center justify-center h-full px-2.5">
-      <slot></slot>
-    </div>
+    <slot></slot>
   </div>
 </template>
 
