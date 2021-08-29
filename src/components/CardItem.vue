@@ -1,6 +1,6 @@
 <template>
   <div class="flex bg-white rounded-lg p-3 mb-5 shadow-md">
-    <div class="mr-3 relative flex-none h-24">
+    <div class="mr-3 relative flex-none h-25">
       <img
         :src="song.artworkUrl100"
         class="img-album rounded-lg"

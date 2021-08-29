@@ -2,13 +2,13 @@
   <div id="app">
     <div v-if="!searching" class="search-wrapper">
       <div class="flex h-full items-center justify-center w-full">
-        <img src="./assets/img/logo.svg" alt="" />
+        <img src="@/assets/img/logo.svg" class="img-logo" alt="" />
       </div>
       <form @submit.prevent="submitHomeForm(keyword)">
         <div class="px-7 py-6">
           <div class="mb-3.5">
             <Input v-model="keyword" placeholder="Artist / Album / Title"/>
-            <div class="mt-1 text-xs text-red-700 text-center" v-if="$v.keyword.$dirty && !$v.keyword.required">
+            <div class="mt-1 text-xs text-red-600 text-center" v-if="$v.keyword.$dirty && !$v.keyword.required">
               Keyword is required
             </div>
           </div>
@@ -33,10 +33,10 @@
           <div class="w-full">
             <form @submit.prevent="submitModalForm(modalKeyword)"> 
               <Input ref="modalKeyword" v-model="modalKeyword" placeholder="Artist / Album / Title"/>
-              <div class="mt-1 text-xs text-red-700 text-center" v-if="$v.modalKeyword.$dirty && !$v.modalKeyword.required">
+              <div class="mt-1 text-xs text-red-500 text-center" v-if="$v.modalKeyword.$dirty && !$v.modalKeyword.required">
                 Keyword is required
               </div>            
-              <button class="mt-3.5 rounded-full w-full p-3 text-white bg-gradient-to-r from-purple-800 to-purple-600 text-sm">
+              <button class="mt-3.5 rounded-full w-full p-3 text-white bg-gradient-to-r from-purple-800 to-purple-600 text-sm focus:ring-2 focus:ring-purple-900 focus:outline-none">
                 Search
               </button>
             </form>
@@ -144,9 +144,6 @@ export default {
       this.isModalDisplay = false;
     }
   },
-  mounted(){
-
-  }
 };
 </script>
 

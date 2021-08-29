@@ -1,7 +1,7 @@
 * {
   font-family: "Roboto", sans-serif;
 }
-body{
+body {
   position: relative;
 }
 
@@ -11,6 +11,22 @@ input::placeholder {
 }
 input:focus::placeholder {
   opacity: 0;
+}
+
+.img-logo {
+  animation: fadeintop 1s;
+  position: relative;
+}
+
+@keyframes fadeintop {
+  from {
+    opacity: 0;
+    top: -30px;
+  }
+  to {
+    opacity: 1;
+    top: 0px;
+  }
 }
 
 .navbar {
@@ -24,12 +40,10 @@ input:focus::placeholder {
   position: sticky;
   z-index: 2;
 }
-.rounded-circle-bottom{
+.rounded-circle-bottom {
   position: absolute;
   height: 30px;
-  background-image: linear-gradient(
-100deg
-, #712bda, #a45deb 100%);
+  background-image: linear-gradient(100deg, #712bda, #a45deb 100%);
   top: 22px;
   width: 100%;
   border-radius: 0 0 45% 45%;
@@ -41,12 +55,12 @@ input:focus::placeholder {
   height: 100vh;
   background-image: linear-gradient(153deg, #712bda, #a45deb 100%);
 }
-.content-wrapper{
+.content-wrapper {
   overflow-y: auto;
   height: calc(100vh - 40px);
   position: relative;
 }
-.img-album{
+.img-album {
   width: 100px;
   height: 100px;
   object-fit: contain;
@@ -57,9 +71,12 @@ input:focus::placeholder {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+  outline: none;
 }
-
-.modal-container{
+.btn-play:hover{
+  opacity: 0.8;
+}
+.modal-container {
   position: absolute;
   top: 0px;
   left: 0px;
@@ -68,7 +85,7 @@ input:focus::placeholder {
   background-color: rgba(28, 28, 45, 0.9);
   z-index: 10;
 }
-.img-button{
+.img-button {
   width: 36px;
   height: 36px;
   filter: drop-shadow(3px 4px 6px black);
