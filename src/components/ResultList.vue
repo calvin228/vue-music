@@ -20,6 +20,7 @@
         @play="playTrack"
         :audio="$refs.audio"
         @pause="pauseTrack"
+        :isLoading="isLoadingAudio"
       ></card-item>
     </div>
     <div v-else class="text-center">
@@ -54,6 +55,7 @@ export default {
     return {
       currentTrackUrl: null,
       isPlay: false,
+      isLoadingAudio: false,
     };
   },
   props: ["keyword", "songs", "limit", "error", "loadingList"],
@@ -84,8 +86,17 @@ export default {
       }
       this.isPlay = true;
       this.$refs.audio.play();
-    },
+    }
   },
+  mounted(){
+    this.$refs.audio.addEventListener('loadstart', () => {
+      this.isLoadingAudio = true;
+    })
+    this.$refs.audio.addEventListener('loadeddata', () => {
+      this.isLoadingAudio = false;
+      this.isPlay = true;
+    })
+  }
 };
 </script>
 
