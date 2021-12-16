@@ -8,4 +8,8 @@ module.exports = {
   //     }
   //   } // the port your server in running on
   // }
+  devServer: {
+    disableHostCheck: true
+  }
+
 }
