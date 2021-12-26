@@ -29,20 +29,19 @@ jobs:
     steps:
       - attach_workspace:
           at: ~/repo
-      - heroku/deploy-via-git
+      - heroku/deploy-via-git:
+          api-key: df3572e4-c1de-4d27-92b8-d920418a21be
+          app-name: vue-music-1jd12
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
 workflows:
-  version: 2.1
+  version: 2
   deploy:
     jobs:
       - build-job
-      - deploy-job:
-          requires:
-            - build-job
-          filters:
-            branches:
-              only: master
-#   say-hello-workflow:
-#     jobs:
-#       - say-hello
+      # - deploy-job:
+      #     requires:
+      #       - build-job
+      #     filters:
+      #       branches:
+      #         only: master
