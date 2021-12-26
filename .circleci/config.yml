@@ -23,14 +23,14 @@ jobs:
           key: dependency-cache-{{ checksum "package-lock.json" }}
           paths:
             - ./node_modules
-    deploy-job:
-      working_directory: ~/repo
-      docker: 
-        - image: cimg/node:16.4.2-alpine
-      steps:
-        - attach_workspace:
-            at: ~/repo
-        - heroku/deploy-via-git
+  deploy-job:
+    working_directory: ~/repo
+    docker: 
+      - image: cimg/node:16.4.2-alpine
+    steps:
+      - attach_workspace:
+          at: ~/repo
+      - heroku/deploy-via-git
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
 workflows:
