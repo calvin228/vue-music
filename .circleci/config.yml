@@ -18,36 +18,32 @@ jobs:
       - checkout
       - run: npm install
       - run: npm run build
-      - run: npm run test:unit:watch
-  deploy-job:
-      docker:
+      - run: npm run test:unit:watch 
+      - save_cache:
+          key: dependency-cache-{{ checksum "package-lock.json" }}
+          paths:
+            - ./node_modules
+    deploy-job:
+      working_directory: ~/repo
+      docker: 
         - image: cimg/node:16.4.2-alpine
       steps:
-        - restore_cache:
-            keys:
-            - v1-dist-{{ .Environment.CIRCLE_BRANCH }}-{{ .Environment.CIRCLE_SHA1 }} 
-        - run:
-            name: show directory 
-            command: pwd
-        - run:
-            name: Install Firebase
-            command: npm install --save-dev firebase-tools
-        - run:
-            name: look in directory
-            command: ls -ltr
-        - run:
-            name: Deploy Master to Firebase
-            command: npm run firebase-deploy -- --token=$FIREBASE_DEPLOY_TOKEN    
+        - attach_workspace:
+            at: ~/repo
+        - heroku/deploy-via-git
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
 workflows:
-  version: 2
-  
-  heroku_deploy:
+  version: 2.1
+  deploy:
     jobs:
       - build-job
-      - heroku/deploy-via-git
-
+      - deploy-job:
+          requires:
+            - build-job
+          filters:
+            branches:
+              only: master
 #   say-hello-workflow:
 #     jobs:
 #       - say-hello
