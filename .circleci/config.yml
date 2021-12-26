@@ -23,7 +23,7 @@ jobs:
           paths:
             - ./node_modules
   deploy-job:
-    working_directory: ~/repo
+    #working_directory: ~/repo
     docker: 
       - image: cimg/node:16.13.1
     steps:
