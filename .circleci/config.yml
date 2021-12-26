@@ -4,6 +4,8 @@ version: 2.1
 
 # Define a job to be invoked later in a workflow.
 # See: https://circleci.com/docs/2.0/configuration-reference/#jobs
+orbs:
+  heroku: circleci/heroku@1.2.6
 jobs:
   build-job:
     # Specify the execution environment. You can specify an image from Dockerhub or use one of our Convenience Images from CircleCI's Developer Hub.
@@ -17,21 +19,35 @@ jobs:
       - run: npm install
       - run: npm run build
       - run: npm run test:unit:watch
-
+  deploy-job:
+      docker:
+        - image: cimg/node:16.4.2-alpine
+      steps:
+        - restore_cache:
+            keys:
+            - v1-dist-{{ .Environment.CIRCLE_BRANCH }}-{{ .Environment.CIRCLE_SHA1 }} 
+        - run:
+            name: show directory 
+            command: pwd
+        - run:
+            name: Install Firebase
+            command: npm install --save-dev firebase-tools
+        - run:
+            name: look in directory
+            command: ls -ltr
+        - run:
+            name: Deploy Master to Firebase
+            command: npm run firebase-deploy -- --token=$FIREBASE_DEPLOY_TOKEN    
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
 workflows:
   version: 2
   
-  -deploy:
+  heroku_deploy:
     jobs:
       - build-job
-      - deploy-job:
-          requires:
-          - build-job
-          filter:
-            branches:
-              only: master 
+      - heroku/deploy-via-git
+
 #   say-hello-workflow:
 #     jobs:
 #       - say-hello
