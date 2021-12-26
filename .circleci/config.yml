@@ -23,26 +23,24 @@ jobs:
           paths:
             - ./node_modules
   deploy-job:
-    #working_directory: ~/repo
+    # working_directory: ~/repo
     docker: 
       - image: cimg/node:16.13.1
     steps:
+      - checkout
       - attach_workspace:
           at: ~/repo
       - heroku/deploy-via-git
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
 workflows:
-  version: 2.1
+  version: 2
   deploy:
     jobs:
       - build-job
       - deploy-job:
           requires:
             - build-job
-          filters:
-            branches:
-              only: master
-#   say-hello-workflow:
-#     jobs:
-#       - say-hello
+          # filters:
+          #   branches:
+          #     only: master
