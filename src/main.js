@@ -1,13 +1,10 @@
-import Vue from 'vue'
+import {createApp} from 'vue'
 import App from './App.vue'
-import Vuelidate from 'vuelidate'
 import './assets/css/tailwind.css';
 import './assets/css/index.css';
+import router from './router';
 
-Vue.config.productionTip = false
+const app = createApp(App); 
 
-Vue.use(Vuelidate)
-
-new Vue({
-  render: h => h(App),
-}).$mount('#app')
+app.use(router)
+app.mount("#app");

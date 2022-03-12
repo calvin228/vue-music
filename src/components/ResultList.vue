@@ -9,25 +9,29 @@
       <div v-if="loadingList">
         <card-item-skeleton v-for="i in 3" :key="i"></card-item-skeleton>
       </div>
-      <card-item
-        v-else
-        v-for="song in displayedSongs"
-        :activeUrl="currentTrackUrl"
-        ref="songItem"
-        :key="song.trackId"
-        :isPlay="isPlay"
-        :song="song"
-        @play="playTrack"
-        :audio="$refs.audio"
-        @pause="pauseTrack"
-        :isLoading="isLoadingAudio"
-      ></card-item>
+      <div v-else>
+        <div v-if="songs.length === 0">
+          <div class="text-center">
+            <img src="@/assets/img/empty.svg" class="w-40 h-40 mx-auto" alt="" />
+            <span>No Result</span>
+          </div>
+        </div>
+        <card-item
+          v-for="song in displayedSongs"
+          :activeUrl="currentTrackUrl"
+          ref="songItem"
+          :key="song.trackId"
+          :isPlay="isPlay"
+          :song="song"
+          @play="playTrack"
+          :audio="$refs.audio"
+          @pause="pauseTrack"
+          :isLoading="isLoadingAudio"
+        ></card-item>
+      </div>
     </div>
     <div v-else class="text-center">
-      <div class="text-center">
-        <img src="@/assets/img/error.svg" class="w-40 h-40 mx-auto" alt="">
-      </div>
-      An error has occured!
+      <ErrorPage/>
     </div>
     <div v-if="!loadingList && !error" class="text-center">
       <button
@@ -45,9 +49,12 @@
 <script>
 import CardItem from "./CardItem";
 import CardItemSkeleton from "./CardItemSkeleton";
+import ErrorPage from "./ErrorPage";
+
 export default {
   name: "ResultList",
   components: {
+    ErrorPage,
     CardItem,
     CardItemSkeleton,
   },

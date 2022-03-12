@@ -12,23 +12,27 @@
   "dependencies": {
     "axios": "^0.21.1",
     "core-js": "^3.6.5",
-    "vue": "^2.6.11",
-    "vuelidate": "^0.7.6"
+    "qs": "^6.10.3",
+    "vee-validate": "^4.5.10",
+    "vue": "^3.2.31",
+    "vue-router": "^4.0.14",
+    "yup": "^0.32.11"
   },
   "devDependencies": {
     "@tailwindcss/postcss7-compat": "^2.2.7",
     "@vue/cli-plugin-babel": "~4.5.0",
     "@vue/cli-plugin-eslint": "~4.5.0",
+    "@vue/cli-plugin-router": "~4.5.0",
     "@vue/cli-plugin-unit-jest": "~4.5.0",
     "@vue/cli-service": "~4.5.0",
+    "@vue/compiler-sfc": "^3.0.0",
     "@vue/test-utils": "^1.0.3",
     "autoprefixer": "^9.8.6",
     "babel-eslint": "^10.1.0",
     "eslint": "^6.7.2",
     "eslint-plugin-vue": "^6.2.2",
     "postcss": "^7.0.36",
-    "tailwindcss": "npm:@tailwindcss/postcss7-compat@^2.2.7",
-    "vue-template-compiler": "^2.6.11"
+    "tailwindcss": "npm:@tailwindcss/postcss7-compat@^2.2.7"
   },
   "eslintConfig": {
     "root": true,
